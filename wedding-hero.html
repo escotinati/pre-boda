@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cinzel:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+         :root {
+            --cream: #fdf6ee;
+            --ivory: #f5ead8;
+            --gold: #D46A59;
+            --gold-light: #e8c97a;
+            --rose: #d4a0a0;
+            --dark: #CD4B34;
+            --mid: #7a6555;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background: var(--cream);
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+        /* ---- HERO ---- */
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem;
+            overflow: hidden;
+        }
+        /* Fondo texturizado con gradiente */
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* background: radial-gradient(ellipse at 20% 50%, rgba(201, 168, 76, 0.12) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(212, 160, 160, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 60% 80%, rgba(201, 168, 76, 0.08) 0%, transparent 50%); */
+            background-color: #fffbf0;
+            z-index: 0;
+        }
+        /* Líneas decorativas esquinas */
+        
+        .corner {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            z-index: 1;
+        }
+        
+        .corner--tl {
+            top: 1.5rem;
+            left: 1.5rem;
+            border-top: 1.5px solid var(--gold);
+            border-left: 1.5px solid var(--gold);
+        }
+        
+        .corner--tr {
+            top: 1.5rem;
+            right: 1.5rem;
+            border-top: 1.5px solid var(--gold);
+            border-right: 1.5px solid var(--gold);
+        }
+        
+        .corner--bl {
+            bottom: 1.5rem;
+            left: 1.5rem;
+            border-bottom: 1.5px solid var(--gold);
+            border-left: 1.5px solid var(--gold);
+        }
+        
+        .corner--br {
+            bottom: 1.5rem;
+            right: 1.5rem;
+            border-bottom: 1.5px solid var(--gold);
+            border-right: 1.5px solid var(--gold);
+        }
+        /* Pétalos flotantes */
+        
+        .petal {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0;
+            animation: floatPetal linear infinite;
+            z-index: 1;
+            user-select: none;
+            pointer-events: none;
+        }
+        
+        @keyframes floatPetal {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-120px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        /* ---- CONTENIDO ---- */
+        
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            text-align: center;
+            animation: fadeUp 1.2s ease both;
+        }
+        
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.35em;
+            color: var(--gold);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            animation: fadeUp 1.2s ease 0.2s both;
+        }
+        
+        .title-script {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            color: var(--dark);
+            line-height: 1.1;
+            animation: fadeUp 1.2s ease 0.35s both;
+        }
+        
+        .ampersand {
+            font-family: 'Great Vibes', cursive;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--gold);
+            display: block;
+            line-height: 1;
+            animation: fadeUp 1.2s ease 0.45s both;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.2rem 0;
+            animation: fadeUp 1.2s ease 0.55s both;
+        }
+        
+        .divider__line {
+            width: 60px;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.6;
+        }
+        
+        .divider__diamond {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            transform: rotate(45deg);
+        }
+        
+        .date {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(0.75rem, 1.5vw, 0.95rem);
+            letter-spacing: 0.25em;
+            color: var(--mid);
+            animation: fadeUp 1.2s ease 0.65s both;
+        }
+        /* ---- SVG GROOM ---- */
+        
+        .scene {
+            position: relative;
+            width: 280px;
+            height: 300px;
+            margin: 1.5rem auto 0.5rem;
+            animation: fadeUp 1.2s ease 0.5s both;
+        }
+        /* Groom body sway — pivota en los pies (140, 264) */
+        
+        .groom-sway {
+            transform-origin: 140px 264px;
+            animation: sway 3.5s ease-in-out infinite;
+        }
+        
+        @keyframes sway {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            25% {
+                transform: rotate(1.2deg);
+            }
+            75% {
+                transform: rotate(-1.2deg);
+            }
+        }
+        /* Cabeza — pivota en la base del cuello (140, 90) */
+        
+        .groom-head {
+            transform-origin: 140px 90px;
+            animation: headLook 4.5s ease-in-out infinite;
+        }
+        
+        @keyframes headLook {
+            0%,
+            35%,
+            100% {
+                transform: rotate(0deg);
+            }
+            50%,
+            85% {
+                transform: rotate(-7deg);
+            }
+        }
+        /* Brazo derecho — pivota en el hombro (162, 105) */
+        
+        .arm-right {
+            transform-origin: 162px 105px;
+            animation: checkWatch 5s ease-in-out infinite;
+        }
+        
+        @keyframes checkWatch {
+            0%,
+            30%,
+            100% {
+                transform: rotate(0deg);
+            }
+            45%,
+            80% {
+                transform: rotate(-38deg);
+            }
+        }
+        /* Ramo — pivota en la mano (169, 158) */
+        
+        .flowers {
+            transform-origin: 169px 158px;
+            animation: flowerSway 3s ease-in-out infinite 0.4s;
+        }
+        
+        @keyframes flowerSway {
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(6deg);
+            }
+        }
+        /* Shadow pulse */
+        
+        .shadow-ellipse {
+            animation: shadowPulse 3.5s ease-in-out infinite;
+        }
+        
+        @keyframes shadowPulse {
+            0%,
+            100% {
+                opacity: 0.13;
+            }
+            50% {
+                opacity: 0.08;
+            }
+        }
+        /* Dots (waiting animation) */
+        
+        .waiting-dots {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            margin-top: 0.3rem;
+        }
+        
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--gold);
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+        
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes dotBounce {
+            0%,
+            80%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.4;
+            }
+            40% {
+                transform: translateY(-8px);
+                opacity: 1;
+            }
+        }
+        /* ---- COUNTDOWN ---- */
+        
+        .countdown {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.8rem;
+            animation: fadeUp 1.2s ease 0.8s both;
+        }
+        
+        .unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .unit__number {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 600;
+            color: var(--dark);
+            line-height: 1;
+            min-width: 2.4ch;
+            text-align: center;
+            position: relative;
+        }
+        
+        .unit__number::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.5;
+        }
+        
+        .unit__label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.2em;
+            color: var(--mid);
+            text-transform: uppercase;
+            margin-top: 0.4rem;
+        }
+        
+        .unit__sep {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            opacity: 0.5;
+            align-self: flex-start;
+            margin-top: 0.2rem;
+        }
+        /* Mensaje si ya llegó la fecha */
+        
+        .arrived {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: var(--gold);
+            margin-top: 1.5rem;
+            display: none;
+        }
+        /* Scroll hint */
+        
+        .scroll-hint {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 2;
+            opacity: 0.5;
+            animation: fadeUp 1.2s ease 1.2s both;
+        }
+        
+        .scroll-hint span {
+            font-family: 'Cinzel', serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.3em;
+            color: var(--mid);
+            text-transform: uppercase;
+        }
+        
+        .scroll-arrow {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollArrow 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes scrollArrow {
+            0%,
+            100% {
+                transform: scaleY(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: scaleY(0.6);
+                opacity: 0.2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <section class="hero">
+        <!-- Esquinas decorativas -->
+        <div class="corner corner--tl"></div>
+        <div class="corner corner--tr"></div>
+        <div class="corner corner--bl"></div>
+        <div class="corner corner--br"></div>
+
+        <!-- Pétalos flotantes (generados por JS) -->
+
+        <div class="hero__content">
+
+            <div class="title-script">Yulia</div>
+            <span class="ampersand">&amp;</span>
+            <div class="title-script">Álvaro</div>
+
+            <div class="divider">
+                <div class="divider__line"></div>
+                <div class="divider__diamond"></div>
+                <div class="divider__line"></div>
+            </div>
+
+            <p class="date">Sábado · 18 de Julio de 2026 · Larrabetzu</p>
+
+            <!-- SVG Escena: novio esperando -->
+            <div class="scene">
+                <!--
+        Coordenadas absolutas. Novio centrado en x=140.
+        Pies en y=262. Cabeza (centro) en y=62. Alto total ≈ 210px dentro de viewBox 0 0 280 300.
+        Animaciones CSS usan transform-origin en coordenadas absolutas del SVG.
+      -->
+                <svg viewBox="0 0 280 300" fill="none" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <defs>
+          <radialGradient id="bgGlow" cx="50%" cy="75%" r="55%">
+            <stop offset="0%" stop-color="#e8c97a" stop-opacity="0.13"/>
+            <stop offset="100%" stop-color="#e8c97a" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#f7cfa8"/>
+            <stop offset="100%" stop-color="#e8ad80"/>
+          </linearGradient>
+          <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#3e3228"/>
+            <stop offset="100%" stop-color="#221a10"/>
+          </linearGradient>
+          <linearGradient id="legGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#33281e"/>
+            <stop offset="100%" stop-color="#1a1208"/>
+          </linearGradient>
+          <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#c9a84c" stop-opacity="0.12"/>
+            <stop offset="100%" stop-color="#c9a84c" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="rose1" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#f0b0b0"/>
+            <stop offset="100%" stop-color="#c96060"/>
+          </radialGradient>
+          <radialGradient id="rose2" cx="50%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#f8c8c8"/>
+            <stop offset="100%" stop-color="#d97070"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Fondo suave -->
+        <rect x="0" y="230" width="280" height="70" fill="url(#floorGrad)"/>
+        <ellipse class="shadow-ellipse" cx="140" cy="270" rx="34" ry="6" fill="#3a2e28" opacity="0.12"/>
+        <ellipse cx="140" cy="180" rx="85" ry="105" fill="url(#bgGlow)"/>
+
+        <!-- ===================== NOVIO — coordenadas absolutas ===================== -->
+        <!-- El g.groom-sway envuelve todo el cuerpo. transform-origin en los pies (140, 264) -->
+        <g class="groom-sway">
+
+          <!-- ── Zapatos ── y=262, ligeramente separados -->
+          <ellipse cx="128" cy="264" rx="14" ry="5" fill="#111008"/>
+          <ellipse cx="152" cy="264" rx="14" ry="5" fill="#111008"/>
+
+          <!-- ── Piernas / pantalón ── de y=182 a y=262 -->
+          <!-- Pierna izquierda -->
+          <rect x="122" y="182" width="15" height="82" rx="7" fill="url(#legGrad)"/>
+          <!-- Pierna derecha -->
+          <rect x="143" y="182" width="15" height="82" rx="7" fill="url(#legGrad)"/>
+
+          <!-- ── Brazo izquierdo ── cuelga, de y=105 a y=162. x: 104–118 -->
+          <rect x="104" y="105" width="14" height="57" rx="7" fill="url(#suitGrad)"/>
+          <!-- Mano izquierda -->
+          <ellipse cx="111" cy="167" rx="7" ry="8" fill="url(#skinGrad)"/>
+
+          <!-- ── Brazo derecho con reloj y ramo ──
+               Pivota en el hombro: transform-origin 162px 105px.
+               De y=105 a y=162. x: 162–176 -->
+          <g class="arm-right">
+            <rect x="162" y="105" width="14" height="57" rx="7" fill="url(#suitGrad)"/>
+            <!-- Mano derecha -->
+            <ellipse cx="169" cy="167" rx="7" ry="8" fill="url(#skinGrad)"/>
+            <!-- Reloj en la muñeca -->
+            <rect x="163" y="148" width="12" height="7" rx="2.5" fill="#999" stroke="#c9a84c" stroke-width="0.8"/>
+            <circle cx="169" cy="151" r="2" fill="#c9a84c" opacity="0.6"/>
+
+            <!-- Ramo de flores — arriba de la mano, pivota en (169,158) -->
+            <g class="flowers">
+              <!-- Tallo principal -->
+              <rect x="167" y="118" width="4" height="42" rx="2" fill="#4a7a3a"/>
+              <!-- Hojas -->
+              <ellipse cx="159" cy="138" rx="9" ry="3.5" fill="#5a8a4a" transform="rotate(-35,159,138)"/>
+              <ellipse cx="179" cy="132" rx="9" ry="3.5" fill="#5a8a4a" transform="rotate(35,179,132)"/>
+              <!-- Rosa central grande -->
+              <circle cx="169" cy="108" r="11" fill="url(#rose1)"/>
+              <path d="M162,104 Q169,97 176,104 Q169,113 162,104" fill="#f0b8b8" opacity="0.7"/>
+              <path d="M160,110 Q169,116 178,110" fill="#c96060" opacity="0.4"/>
+              <!-- Rosas laterales -->
+              <circle cx="157" cy="116" r="8" fill="url(#rose2)"/>
+              <circle cx="181" cy="116" r="8" fill="url(#rose2)"/>
+              <!-- Capullos -->
+              <ellipse cx="152" cy="124" rx="5" ry="6" fill="#f8c8c8"/>
+              <ellipse cx="186" cy="124" rx="5" ry="6" fill="#f8c8c8"/>
+              <!-- Florecitas blancas -->
+              <circle cx="163" cy="98"  r="3.5" fill="white" opacity="0.95"/>
+              <circle cx="175" cy="98"  r="3.5" fill="white" opacity="0.95"/>
+              <circle cx="169" cy="94"  r="3.5" fill="white" opacity="0.95"/>
+            </g>
+          </g>
+
+          <!-- ── Cuerpo / chaqueta ── de y=100 a y=185 -->
+          <rect x="118" y="100" width="44" height="85" rx="12" fill="url(#suitGrad)"/>
+
+          <!-- Solapas -->
+          <path d="M118,100 L133,128 L118,148" fill="#2a1e12" stroke="#1a1208" stroke-width="0.5"/>
+          <path d="M162,100 L147,128 L162,148" fill="#2a1e12" stroke="#1a1208" stroke-width="0.5"/>
+
+          <!-- Camisa / pechera -->
+          <rect x="133" y="107" width="14" height="54" rx="3" fill="#fdf6ee"/>
+          <!-- Botones dorados -->
+          <circle cx="140" cy="116" r="1.5" fill="#c9a84c"/>
+          <circle cx="140" cy="127" r="1.5" fill="#c9a84c"/>
+          <circle cx="140" cy="138" r="1.5" fill="#c9a84c"/>
+
+          <!-- Pajarita -->
+          <path d="M135,101 L140,107 L145,101 L140,95 Z" fill="#7a2020"/>
+          <circle cx="140" cy="101" r="2" fill="#9a3030"/>
+
+          <!-- Bolsillo decorativo + pañuelo -->
+          <rect x="120" y="118" width="11" height="8" rx="2" fill="#2a1e12"/>
+          <path d="M121,118 Q125,113 130,118" fill="none" stroke="#e8c97a" stroke-width="1.8" stroke-linecap="round"/>
+
+          <!-- ── Cuello ── y=88 a y=103 -->
+          <rect x="132" y="88" width="16" height="16" rx="6" fill="url(#skinGrad)"/>
+
+          <!-- ── Cabeza ── centro en (140, 62), pivota en base del cuello (140, 90) -->
+          <g class="groom-head">
+            <!-- Pelo (dibujado antes para quedar detrás) -->
+            <ellipse cx="140" cy="47" rx="24" ry="14" fill="#2a1a08"/>
+            <path d="M116,50 Q114,64 118,72" fill="#2a1a08"/>
+            <path d="M164,50 Q166,64 162,72" fill="#2a1a08"/>
+            <!-- Cabeza -->
+            <ellipse cx="140" cy="64" rx="23" ry="26" fill="url(#skinGrad)"/>
+            <!-- Orejas -->
+            <ellipse cx="117" cy="63" rx="5" ry="7" fill="url(#skinGrad)"/>
+            <ellipse cx="163" cy="63" rx="5" ry="7" fill="url(#skinGrad)"/>
+            <!-- Pelo encima -->
+            <ellipse cx="140" cy="44" rx="23" ry="13" fill="#2a1a08"/>
+            <path d="M117,48 Q115,60 119,70" fill="#2a1a08"/>
+            <path d="M163,48 Q165,60 161,70" fill="#2a1a08"/>
+            <!-- Ojos — mirando a la izquierda (esperando) -->
+            <ellipse cx="131" cy="62" rx="4" ry="4.5" fill="white"/>
+            <ellipse cx="149" cy="62" rx="4" ry="4.5" fill="white"/>
+            <circle  cx="129" cy="62" r="2.3" fill="#2e2218"/>
+            <circle  cx="147" cy="62" r="2.3" fill="#2e2218"/>
+            <circle  cx="128" cy="61" r="0.8" fill="white"/>
+            <circle  cx="146" cy="61" r="0.8" fill="white"/>
+            <!-- Cejas levantadas (nervioso) -->
+            <path d="M124,54 Q131,49 137,52" stroke="#2a1a08" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <path d="M143,52 Q149,49 156,54" stroke="#2a1a08" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+            <!-- Nariz -->
+            <path d="M137,70 Q140,75 143,70" stroke="#c8906a" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+            <!-- Sonrisa nerviosa -->
+            <path d="M133,78 Q140,83 147,78" stroke="#c8906a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+            <!-- Rubor -->
+            <ellipse cx="122" cy="68" rx="7" ry="4.5" fill="#e87070" opacity="0.18"/>
+            <ellipse cx="158" cy="68" rx="7" ry="4.5" fill="#e87070" opacity="0.18"/>
+          </g>
+
+        </g><!-- /groom-sway -->
+
+        <!-- ── Decoración suelo ── -->
+        <circle cx="88"  cy="258" r="4"   fill="#d97070" opacity="0.45"/>
+        <circle cx="80"  cy="263" r="3"   fill="#e8c97a" opacity="0.4"/>
+        <circle cx="96"  cy="261" r="2.5" fill="#d97070" opacity="0.35"/>
+        <circle cx="197" cy="261" r="3.5" fill="#d97070" opacity="0.4"/>
+        <circle cx="189" cy="257" r="2.5" fill="#e8c97a" opacity="0.35"/>
+
+        <!-- ── Corazones flotantes ── -->
+        <path d="M55,88 C55,83 47,78 47,86 C47,94 55,99 55,99 C55,99 63,94 63,86 C63,78 55,83 55,88Z" fill="#d97070" opacity="0.22">
+          <animateTransform attributeName="transform" type="translate" values="0,0;-4,-14;0,0" dur="3.2s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.22;0.45;0.22" dur="3.2s" repeatCount="indefinite"/>
+        </path>
+        <path d="M215,108 C215,104 209,100 209,107 C209,114 215,117 215,117 C215,117 221,114 221,107 C221,100 215,104 215,108Z" fill="#d97070" opacity="0.18">
+          <animateTransform attributeName="transform" type="translate" values="0,0;3,-16;0,0" dur="4.1s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.18;0.4;0.18" dur="4.1s" repeatCount="indefinite"/>
+        </path>
+      </svg>
+            </div>
+
+            <!-- Puntitos de espera -->
+            <div class="waiting-dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+
+            <!-- Cuenta atrás -->
+            <div class="countdown" id="countdown">
+                <div class="unit">
+                    <span class="unit__number" id="days">--</span>
+                    <span class="unit__label">Días</span>
+                </div>
+                <span class="unit__sep">·</span>
+                <div class="unit">
+                    <span class="unit__number" id="hours">--</span>
+                    <span class="unit__label">Horas</span>
+                </div>
+                <span class="unit__sep">·</span>
+                <div class="unit">
+                    <span class="unit__number" id="minutes">--</span>
+                    <span class="unit__label">Min</span>
+                </div>
+                <span class="unit__sep">·</span>
+                <div class="unit">
+                    <span class="unit__number" id="seconds">--</span>
+                    <span class="unit__label">Seg</span>
+                </div>
+            </div>
+
+            <div class="arrived" id="arrived">Próximamente... 🎊</div>
+
+        </div>
+        <!-- /content -->
+    </section>
+
+    <script>
+        // ---- Pétalos ----
+        const petals = ['🌸', '🌷', '✿', '❀', '🌹'];
+        const hero = document.querySelector('.hero');
+        for (let i = 0; i < 12; i++) {
+            const p = document.createElement('div');
+            p.className = 'petal';
+            p.textContent = petals[Math.floor(Math.random() * petals.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (8 + Math.random() * 10) + 's';
+            p.style.animationDelay = (Math.random() * 12) + 's';
+            p.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
+            hero.appendChild(p);
+        }
+
+        // ---- Cuenta atrás ----
+        // Cambia esta fecha a la fecha real de la boda
+        const weddingDate = new Date('2025-07-12T12:00:00');
+
+        function pad(n) {
+            return String(n).padStart(2, '0');
+        }
+
+        function updateCountdown() {
+            const now = new Date();
+            const diff = weddingDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').style.display = 'none';
+                document.getElementById('arrived').style.display = 'block';
+                return;
+            }
+
+            const days = Math.floor(diff / 86400000);
+            const hours = Math.floor((diff % 86400000) / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = pad(hours);
+            document.getElementById('minutes').textContent = pad(minutes);
+            document.getElementById('seconds').textContent = pad(seconds);
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>
